@@ -1,3 +1,32 @@
+<?php
+
+include("..\src\classes\user.php");
+$error_empty ="";
+if(isset($_POST["send"]))
+{
+  $user1 = new User();
+  $name = $_POST["name"];
+  $email = $_POST["email"];
+  $password = $_POST["password"];
+  $passwordrepeat = $_POST["password-repeat"];
+  if($password == $passwordrepeat)
+  {
+    $user1->create($name,$email,$password);
+    header('Location: ../views/login.php');
+    unset($_POST);
+  }
+  else
+  {
+    header('location: ../views/register.php');
+    unset($_POST);
+  }
+
+
+
+unset($error_empty);
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +36,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
-<section class="mh-100" style="background-color:rgb(152, 152, 152);">
+<section class="mh-100
+" style="background-color:rgb(152, 152, 152);">
   <div class="container py-5 mh-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col col-xl-10">
@@ -15,12 +45,12 @@
           <div class="row g-0">
             <div class="col-md-6 col-lg-5 d-none d-md-block d-flex align-items-center">
               <img class ="h-75 mw-100 rounded" src="https://www.sas.ac.uk/sites/default/files/styles/1_1_media_tiny/public/2019-10/Senate%20House%20Library%20reading%20room%20with%20morning%20sun%20hitting%20the%20desks.jpg?h=d3cdef51&itok=u1FhUTDb"
-                alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+                alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;"/>
             </div>
             <div class="col-md-6 col-lg-7 d-flex align-items-center">
               <div class="card-body p-4 p-lg-5 text-black">
 
-                <form>
+                <form METHOD = "POST" action ="register.php">
 
                   <div class="d-flex align-items-center mb-3 pb-1">
                     <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
@@ -28,7 +58,6 @@
                   </div>
 
                   <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Register Your Account</h5>
-
                   <div data-mdb-input-init class="form-outline mb-4">
                   <label class="form-label" for="Name">Full Name</label>
                     <input type="text" name = "name" id="Name" class="form-control form-control-lg" /> 
@@ -36,7 +65,7 @@
 
                   <div data-mdb-input-init class="form-outline mb-4">
                   <label class="form-label" for="email">Email Address</label>
-                    <input type="email" name ="name" id="email" class="form-control form-control-lg" /> 
+                    <input type="email" name ="email" id="email" class="form-control form-control-lg"/> 
                   </div>
 
                   <div data-mdb-input-init class="form-outline mb-4">
@@ -50,7 +79,7 @@
                   </div>
 
                   <div class="pt-1 mb-4">
-                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-lg btn-block" type="button">Register</button>
+                    <button name = "send" data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-lg btn-block" type="submit" >REGISTER</button>
                   </div>
 
                   <a class="small text-muted" href="#!">Forgot password?</a>

@@ -1,6 +1,6 @@
 <?php
 
-include("../../config/database.php");
+include(".././config/database.php");
 
 class User extends DataBase
 {
@@ -22,7 +22,8 @@ class User extends DataBase
             $ist = $this->connection->prepare("INSERT INTO users(Nom, Email, Password, Role) VALUES(:nom, :email, :password, 'Apprenant')");
             $ist->bindParam(':nom', $nom);
             $ist->bindParam(':email', $email);
-            $ist->bindParam(':password', $Password);
+            $hashed_password = password_hash($Password, PASSWORD_DEFAULT, ['cost' => 12]);
+            $ist->bindParam(':password', $hashed_password);
             $ist->execute();
         echo "the user is added!";
         }
@@ -39,7 +40,8 @@ class User extends DataBase
             $edit = $this->connection->prepare("UPDATE USER set Nom = ':nom',email = ':email',password = ':password' WHERE id = ':id' ");
             $edit->bindParam(':nom',$nom);
             $edit->bindParam(':email',$email);
-            $edit->bindParam(':password',$password);
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+            $ist->bindParam(':password', $hashed_password);
             $edit->bindParam(':id',$id);
             $edit->execute();
             echo "USER EDITED";
@@ -97,9 +99,64 @@ public function findone($id)
         $error->getmessage();
     }
 }
+
+public function setid($id)
+{
+    $this->id = $id;
+}
+
+public function getid()
+{
+    return $this->id;
+}
+
+public function setnom($nom)
+{
+    $this->nom = $nom;
+}
+
+public function getnom()
+{
+    return $this->nom;
+}
+
+public function getemail()
+{
+    return $this->email;
+}
+
+public function setemail($email)
+{
+    $this->email = $email;
+}
+
+public function setpassword($password)
+{
+    $this->Password = $password;
+}
+
+public function getpassword()
+{
+   return $this->Password;
+}
+
+public function setrole($role)
+{
+    $this->Role = $role;
+}
+
+public function getrole()
+{
+    return $this->Role;
+}
+
+// public function __tostring()
+// {
+//     echo "id : " . $this->id .":name" . $this-> Nom . "Email:" . $this->Email . "password:" . $this->Password "role :" . $this->Role;
+// }
     }
 
   
 $newuser = new User();
-$newuser->create("xxx","dssss","ddddss");
+$newuser->create("soso","fofo","bibi");
 ?>

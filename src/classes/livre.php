@@ -4,6 +4,7 @@ include("../../config/database.php");
 
 class Livre extends DataBase
 {
+    private $id
     private $Nom;
     private $Auteur;
     private $Tag;
@@ -15,16 +16,17 @@ class Livre extends DataBase
     parent::connection();
     }
 
-    public function create($nom,$auteur,$tag,$categorie,)
+    public function create($nom,$auteur,$tag,$categorie)
     {
         try
         {
-            $ist = $this->connection->prepare("INSERT INTO users(Nom, Email, Password, Role) VALUES(:nom, :email, :password, 'Apprenant')");
-            $ist->bindParam(':nom', $nom);
-            $ist->bindParam(':email', $email);
-            $ist->bindParam(':password', $Password);
+            $ist = $this->connection->prepare("INSERT INTO users(nom, Auteur, Tag,categorie) VALUES(:nom, :Auteur, :categorie,:Tag)");
+            $ist->bindParam(':nom', $Nom);
+            $ist->bindParam(':Auteur', $auteur);
+            $ist->bindParam(':categorie', $categorie);
+            $ist->bindParam(':Tag', $Tag);
             $ist->execute();
-        echo "the user is added!";
+        echo "the livre is added!";
         }
         catch(PDOException $error)
         {
@@ -71,7 +73,7 @@ class Livre extends DataBase
     {
         try
         {
-        $select_one= $this->connection->prepare("SELECT * FROM users");
+        $select_one= $this->connection->prepare("SELECT * FROM livre");
         $select_one->execute();
         echo "the user selected!";
         }
@@ -86,7 +88,7 @@ public function findone($id)
 {
     try
     {
-    $findone = $this->connection->prepare("SELECT * FROM :id");
+    $findone = $this->connection->prepare("SELECT * FROM livre where = :id");
     $findone->bindParam(':id',$id);
     $edit->execute();
     echo "USER EDITED";
@@ -97,9 +99,71 @@ public function findone($id)
         $error->getmessage();
     }
 }
+
+
+public function setid($id)
+{
+    $this->id = $id
+}
+
+public function getid()
+{
+    return $this->id;
+}
+
+public function setnom($nom)
+{
+    $this->Nom = $nom;
+}
+
+public function getnom()
+{
+    return $this->Nom;
+}
+
+public function getauteur()
+{
+    return $this->Auteur;
+}
+
+public function setauteur($auteur)
+{
+    $this->email = $auteur;
+}
+
+public function settag($tag)
+{
+    $this->Tag = $tag;
+}
+
+public function gettag()
+{
+   return $this->Tag;
+}
+
+public function setcategorie($categorie)
+{
+    $this->categorie = $categorie;
+}
+
+public function setcategorie()
+{
+    return $this->categorie;
+}
+public function getdatecreation()
+{
+    return $this->DateCreation;
+}
+public function setdatecreation($date)
+{
+   $this->DateCreation = $date;
+}
+public function __tostring()
+{
+    echo "id : " . $this->id .":name" . $this-> Nom . "auteur:" . $this->Auteur . "categorie:" . $this->categorie "tag :" . $this->tag;
+}
 } 
 
-public 
 
 
 ?>
