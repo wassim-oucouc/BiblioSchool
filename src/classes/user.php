@@ -1,6 +1,6 @@
 <?php
 
-include(".././config/database.php");
+include("../../config/database.php");
 
 class User extends DataBase
 {
@@ -167,6 +167,5 @@ public function getrole()
     }
 
   
-$newuser = new User();
-$newuser->create("soso","fofo","bibi");
+
 ?>

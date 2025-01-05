@@ -20,6 +20,7 @@ class reservation extends DataBase
             $ist->bindParam(':nom', $nom);
             $ist->bindParam(':status', $status);
             $ist->execute();
+
         echo "the reservation is added!";
         }
         catch(PDOException $error)
@@ -146,6 +147,6 @@ public function getnom()
 
 $newreservation = new reservation();
 
-$newreservation->findone(2);
+$newreservation->create_reservation("newbook","pending");
 
 ?>

@@ -4,7 +4,7 @@ include("../../config/database.php");
 
 class Livre extends DataBase
 {
-    private $id
+    private $id;
     private $Nom;
     private $Auteur;
     private $Tag;
@@ -20,12 +20,18 @@ class Livre extends DataBase
     {
         try
         {
-            $ist = $this->connection->prepare("INSERT INTO livre(nom, Auteur, Tag, categorie) VALUES(:nom, :auteur, :tag, :categorie)");
-            $ist->bindParam(':nom', $nom);
-            $ist->bindParam(':auteur', $Auteur);
-            $ist->bindParam(':tag', $Tag);
-            $ist->bindParam(':categorie', $categorie);
-            $ist->execute();
+            $categorieStmt = $this->connection->prepare("INSERT INTO categorie(NOM) VALUES(:NOM_CATEGORIE)");
+            $categorieStmt->bindParam(':NOM_CATEGORIE', $categorie);
+            $categorieStmt->execute();
+            
+            $lastCategorieId = $this->connection->lastInsertId();
+            
+            $livreStmt = $this->connection->prepare("INSERT INTO livre(nom, Auteur, Tag, ID_CATEGORIE) VALUES(:nom, :auteur, :tag, :id_categorie)");
+            $livreStmt->bindParam(':nom', $nom);
+            $livreStmt->bindParam(':auteur', $Auteur);
+            $livreStmt->bindParam(':tag', $Tag);
+            $livreStmt->bindParam(':id_categorie', $lastCategorieId); 
+            $livreStmt->execute();
         echo "the livre is added!";
         }
         catch(PDOException $error)
@@ -145,10 +151,11 @@ public function getcategorie()
 }
 public function __tostring()
 {
-    echo "id : " . $this->id .":name" . $this-> Nom . "auteur:" . $this->Auteur . "categorie:" . $this->categorie "tag :" . $this->tag;
+    echo "id : " . $this->id ."name:" . $this-> Nom . "auteur:" . $this->Auteur . "categorie:" . $this->categorie . "tag:" . $this->tag;
 }
 } 
 
-
+$newlivre = new livre();
+$newlivre->create("hdhdhd","jdjdhdjd","djdjdjd","jdjdjdd");
 
 ?>
