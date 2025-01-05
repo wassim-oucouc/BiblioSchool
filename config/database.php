@@ -26,7 +26,7 @@ class DataBase{
 
 
 public function __toString() {
-    // Return a string representation of the object, e.g., a connection status or similar
+  
     return "Database connection object";
 }
 }

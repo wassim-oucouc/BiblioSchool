@@ -1,28 +1,23 @@
 <?php
 
-include(".././src/classes/user.php")
-
-
-class gerant extends user
+class categorie extends DataBase
 {
     private $id;
     private $Nom;
-    private $status;
 
     public function __construct()
     {
     parent::connection();
     }
 
-    public function create_reservation($nom,$status)
+    public function create_categorie($nom)
     {
         try
         {
-            $ist = $this->connection->prepare("INSERT INTO reservation(Nom,status) VALUES(:nom,:status)");
+            $ist = $this->connection->prepare("INSERT INTO categorie(Nom) VALUES(:nom)");
             $ist->bindParam(':nom', $nom);
-            $ist->bindParam(':status', $status);
             $ist->execute();
-        echo "the reservation is added!";
+        echo "the categorie is added!";
         }
         catch(PDOException $error)
         {
@@ -30,11 +25,11 @@ class gerant extends user
         }
     }
 
-    public function select_reservation($nom)
+    public function selectcategorie($nom)
     {
         try
         {
-            $ist = $this->connection->prepare("SELECT * FROM reservation where Nom = :nom");
+            $ist = $this->connection->prepare("SELECT * FROM categorie where nom = :nom");
             $ist->bindParam(':nom', $nom);
             $ist->execute();
             $ist->fetch(PDO::FETCH_ASSOC);
@@ -45,16 +40,15 @@ class gerant extends user
         }
 
     }
-    public function edit_reservation($id,$nom,$status)
+    public function edit_categorie($nom)
     {
         try
         {
-            $edit = $this->connection->prepare("UPDATE reservation set Nom = :nom,status = :status where id = :id ");
-            $edit->bindParam(':id',$id);
+            $edit = $this->connection->prepare("UPDATE categorie set nom = :nom where id = :id ");
             $edit->bindParam(':nom',$nom);
-            $edit->bindParam(':status',$status);
+            $edit->bindParam(':id',$id);
             $edit->execute();
-            echo "reservation EDITED";
+            echo "categorie EDITED";
         }
         catch(PDOException $error)
         {
@@ -62,30 +56,14 @@ class gerant extends user
         }
         }
 
-        public function update_status()
-        {
-            try
-            {
-                $edit = $this->connection->prepare("UPDATE reservation set status = :status where id = :id ");
-                $edit->bindParam(':id',$id);
-                $edit->bindParam(':nom',$status);
-                $edit->execute();
-                echo "reservation status EDITED";
-            }
-            catch(PDOException $error)
-            {
-                die($error->getMessage());
-            }
-        }
-
-    public function delete_reservation($id)
+    public function delete($id)
     {
         try
         {
-        $delete = $this->connection->prepare("DELETE FROM reservation WHERE id = :id");
+        $delete = $this->connection->prepare("DELETE FROM categorie WHERE id = :id");
         $delete->bindParam(':id',$id);
         $delete->execute();
-        echo "reservation Deleted";
+        echo "categorie Deleted";
         }
 
     catch(PDOException $error)
@@ -97,9 +75,10 @@ class gerant extends user
     {
         try
         {
-        $select_one= $this->connection->prepare("SELECT * FROM reservation");
+        $select_one= $this->connection->prepare("SELECT * FROM categorie");
         $select_one->execute();
         return $select_one->fetchAll(PDO::FETCH_ASSOC);
+        echo "the categories selected!";
         }
         catch(PDOException $error)
     {
@@ -111,7 +90,7 @@ public function findone($id)
 {
     try
     {
-    $findone = $this->connection->prepare("SELECT reservation * FROM where id = :id");
+    $findone = $this->connection->prepare("SELECT categorie * FROM where id = :id");
     $findone->bindParam(':id',$id);
     $findone->execute();
     return $findone->fetch(PDO::FETCH_ASSOC);
@@ -141,9 +120,8 @@ public function getnom()
 {
     return $this->Nom;
 }
+
 }
 
-
-?>
 
 ?>

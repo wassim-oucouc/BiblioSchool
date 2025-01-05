@@ -22,34 +22,47 @@ class User extends DataBase
             $ist = $this->connection->prepare("INSERT INTO users(Nom, Email, Password, Role) VALUES(:nom, :email, :password, 'Apprenant')");
             $ist->bindParam(':nom', $nom);
             $ist->bindParam(':email', $email);
-            $hashed_password = password_hash($Password, PASSWORD_DEFAULT, ['cost' => 12]);
-            $ist->bindParam(':password', $hashed_password);
+            $ist->bindParam(':password', $Password);
             $ist->execute();
         echo "the user is added!";
         }
         catch(PDOException $error)
         {
-            die("there a error");
-            $error->getmessage();
+            die($error->getMessage());
         }
+    }
+
+    public function selectemail($email)
+    {
+        try
+        {
+            $ist = $this->connection->prepare("SELECT * FROM users where email = :email");
+            $ist->bindParam(':email', $email);
+            $ist->execute();
+            $ist->fetch(PDO::FETCH_ASSOC);
+        echo "the user is added!";
+        }
+        catch(PDOException $error)
+        {
+            die($error->getMessage());
+        }
+
     }
     public function edit($id,$nom,$email,$password)
     {
         try
         {
-            $edit = $this->connection->prepare("UPDATE USER set Nom = ':nom',email = ':email',password = ':password' WHERE id = ':id' ");
+            $edit = $this->connection->prepare("UPDATE users set Nom = :nom,Email = :email,Password = :password WHERE id = :id ");
             $edit->bindParam(':nom',$nom);
             $edit->bindParam(':email',$email);
-            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-            $ist->bindParam(':password', $hashed_password);
+            $edit->bindParam(':password', $password);
             $edit->bindParam(':id',$id);
             $edit->execute();
             echo "USER EDITED";
         }
         catch(PDOException $error)
         {
-            die("there a error");
-            $error->getmessage();
+            die($error->getMessage());
         }
         }
 
@@ -65,8 +78,7 @@ class User extends DataBase
 
     catch(PDOException $error)
     {
-        die("there a error");
-        $error->getmessage();
+        die($error->getMessage());
     }
 }
     public function findAll()
@@ -75,12 +87,11 @@ class User extends DataBase
         {
         $select_one= $this->connection->prepare("SELECT * FROM users");
         $select_one->execute();
-        echo "the user selected!";
+        return $select_one->fetchAll(PDO::FETCH_ASSOC);
         }
         catch(PDOException $error)
     {
-        die("there a error");
-        $error->getmessage();
+        die($error->getMessage());
     }
 }
 
@@ -88,15 +99,14 @@ public function findone($id)
 {
     try
     {
-    $findone = $this->connection->prepare("SELECT * FROM :id");
+    $findone = $this->connection->prepare("SELECT user * FROM where id = :id");
     $findone->bindParam(':id',$id);
-    $edit->execute();
-    echo "USER EDITED";
+    $findone->execute();
+    return $findone->fetch(PDO::FETCH_ASSOC);
     }
     catch(PDOException $error)
     {
-        die("there a error");
-        $error->getmessage();
+        die($error->getMessage());
     }
 }
 

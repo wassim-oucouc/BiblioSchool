@@ -16,40 +16,55 @@ class Livre extends DataBase
     parent::connection();
     }
 
-    public function create($nom,$auteur,$tag,$categorie)
+    public function create($nom,$Auteur,$Tag,$categorie)
     {
         try
         {
-            $ist = $this->connection->prepare("INSERT INTO users(nom, Auteur, Tag,categorie) VALUES(:nom, :Auteur, :categorie,:Tag)");
-            $ist->bindParam(':nom', $Nom);
-            $ist->bindParam(':Auteur', $auteur);
+            $ist = $this->connection->prepare("INSERT INTO livre(nom, Auteur, Tag, categorie) VALUES(:nom, :auteur, :tag, :categorie)");
+            $ist->bindParam(':nom', $nom);
+            $ist->bindParam(':auteur', $Auteur);
+            $ist->bindParam(':tag', $Tag);
             $ist->bindParam(':categorie', $categorie);
-            $ist->bindParam(':Tag', $Tag);
             $ist->execute();
         echo "the livre is added!";
         }
         catch(PDOException $error)
         {
-            die("there a error");
-            $error->getmessage();
+            die($error->getMessage());
         }
     }
-    public function edit($id,$nom,$email,$password)
+
+    public function selectlivre($id)
     {
         try
         {
-            $edit = $this->connection->prepare("UPDATE USER set Nom = ':nom',email = ':email',password = ':password' WHERE id = ':id' ");
-            $edit->bindParam(':nom',$nom);
-            $edit->bindParam(':email',$email);
-            $edit->bindParam(':password',$password);
-            $edit->bindParam(':id',$id);
-            $edit->execute();
-            echo "USER EDITED";
+            $ist = $this->connection->prepare("SELECT * FROM livre where ID_LIVRE = :id");
+            $ist->bindParam(':id', $id);
+            $ist->execute();
+            $ist->fetch(PDO::FETCH_ASSOC);
         }
         catch(PDOException $error)
         {
-            die("there a error");
-            $error->getmessage();
+            die($error->getMessage());
+        }
+
+    }
+    public function edit($id,$nom,$auteur,$tag,$categorie)
+    {
+        try
+        {
+            $edit = $this->connection->prepare("UPDATE livre set nom = :nom,auteur = :auteur,tag = :tag,categorie = :categorie WHERE ID_LIVRE = :id ");
+            $edit->bindParam(':nom',$nom);
+            $edit->bindParam(':auteur',$auteur);
+            $edit->bindParam(':tag', $tag);
+            $edit->bindParam(':categorie', $categorie);
+            $edit->bindParam(':id',$id);
+            $edit->execute();
+            echo "book EDITED";
+        }
+        catch(PDOException $error)
+        {
+            die($error->getMessage());
         }
         }
 
@@ -57,16 +72,15 @@ class Livre extends DataBase
     {
         try
         {
-        $delete = $this->connection->prepare("DELETE FROM users WHERE id = :id");
+        $delete = $this->connection->prepare("DELETE FROM livre WHERE ID_LIVRE = :id");
         $delete->bindParam(':id',$id);
         $delete->execute();
-        echo "USER Deleted";
+        echo "book Deleted";
         }
 
     catch(PDOException $error)
     {
-        die("there a error");
-        $error->getmessage();
+        die($error->getMessage());
     }
 }
     public function findAll()
@@ -75,12 +89,11 @@ class Livre extends DataBase
         {
         $select_one= $this->connection->prepare("SELECT * FROM livre");
         $select_one->execute();
-        echo "the user selected!";
+        return $select_one->fetchAll(PDO::FETCH_ASSOC);
         }
         catch(PDOException $error)
     {
-        die("there a error");
-        $error->getmessage();
+        die($error->getMessage());
     }
 }
 
@@ -88,57 +101,37 @@ public function findone($id)
 {
     try
     {
-    $findone = $this->connection->prepare("SELECT * FROM livre where = :id");
+    $findone = $this->connection->prepare("SELECT livre * FROM where ID_LIVRE = :id");
     $findone->bindParam(':id',$id);
-    $edit->execute();
-    echo "USER EDITED";
+    $findone->execute();
+    return $findone->fetch(PDO::FETCH_ASSOC);
     }
     catch(PDOException $error)
     {
-        die("there a error");
-        $error->getmessage();
+        die($error->getMessage());
     }
-}
-
-
-public function setid($id)
-{
-    $this->id = $id
-}
-
-public function getid()
-{
-    return $this->id;
 }
 
 public function setnom($nom)
 {
-    $this->Nom = $nom;
+     $this->Nom = $nom;
 }
-
 public function getnom()
 {
     return $this->Nom;
 }
-
-public function getauteur()
-{
-    return $this->Auteur;
-}
-
 public function setauteur($auteur)
 {
-    $this->email = $auteur;
+   $this->Auteur = $auteur;
 }
 
 public function settag($tag)
 {
-    $this->Tag = $tag;
+    $this->Tag;
 }
-
 public function gettag()
 {
-   return $this->Tag;
+   return  $this->Tag;
 }
 
 public function setcategorie($categorie)
@@ -146,17 +139,9 @@ public function setcategorie($categorie)
     $this->categorie = $categorie;
 }
 
-public function setcategorie()
+public function getcategorie()
 {
     return $this->categorie;
-}
-public function getdatecreation()
-{
-    return $this->DateCreation;
-}
-public function setdatecreation($date)
-{
-   $this->DateCreation = $date;
 }
 public function __tostring()
 {

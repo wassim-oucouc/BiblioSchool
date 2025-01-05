@@ -1,7 +1,7 @@
 <?php
 
 include("..\src\classes\user.php");
-$error_empty ="";
+$email_error = "";
 if(isset($_POST["send"]))
 {
   $user1 = new User();
@@ -9,22 +9,46 @@ if(isset($_POST["send"]))
   $email = $_POST["email"];
   $password = $_POST["password"];
   $passwordrepeat = $_POST["password-repeat"];
-  if($password == $passwordrepeat)
-  {
-    $user1->create($name,$email,$password);
-    header('Location: ../views/login.php');
-    unset($_POST);
-  }
-  else
-  {
-    header('location: ../views/register.php');
-    unset($_POST);
-  }
 
+  $query = $user1->selectemail($email);
 
-
-unset($error_empty);
+  // if(mysqli_num_rows($query) == 0)
+  // {
+  //   echo "the email is unique";
+  // }
+  // else
+  // {
+  //   echo "the email not unique";
+  // }
 }
+
+  
+  // if($password == $passwordrepeat)
+  // {
+  //   $user1->create($name,$email,$password);
+  //   header('Location: ../views/login.php');
+  //   unset($_POST);
+  //   $_POST = array();
+  // }
+  // else
+  // {
+  //   header('location: ../views/register.php');
+  //   unset($_POST);
+  //   $_POST = array();
+  // }
+//   unset($_POST);
+// }
+// if($_POST = "")
+// {
+//   echo "post is clear!";
+// }
+// else
+// {
+//   echo "not clear";
+// }
+
+// unset($_POST);
+// $_POST = array();
 
 ?>
 <!DOCTYPE html>
@@ -56,7 +80,7 @@ unset($error_empty);
                     <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
                     <span class="h1 fw-bold mb-0">BiblioSchool</span>
                   </div>
-
+<?php echo $error_empty ?>
                   <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Register Your Account</h5>
                   <div data-mdb-input-init class="form-outline mb-4">
                   <label class="form-label" for="Name">Full Name</label>
