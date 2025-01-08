@@ -1,7 +1,7 @@
 <?php
-include("../../config/database.php");
+require_once("../../config/database.php");
 
-class reservation extends DataBase
+class reservation extends DataBases
 {
     private $id;
     private $Nom;

@@ -1,7 +1,7 @@
 <?php
 
-include("..\src\classes\user.php");
-$email_error = "";
+require_once(".././src/classes/user.php");
+require_once(".././src/classes/Authentification.php");
 if(isset($_POST["send"]))
 {
   $user1 = new User();
@@ -10,45 +10,35 @@ if(isset($_POST["send"]))
   $password = $_POST["password"];
   $passwordrepeat = $_POST["password-repeat"];
 
-  $query = $user1->selectemail($email);
+  $authy = new authy();
+  $check_email = $authy->checkemail($email);
+  var_dump($check_email);
 
-  // if(mysqli_num_rows($query) == 0)
-  // {
-  //   echo "the email is unique";
-  // }
-  // else
-  // {
-  //   echo "the email not unique";
-  // }
+
+
+ if(!empty($name) && !empty($email) && !empty($password) && !empty($passwordrepeat))
+  {
+    if($check_email == "the email not registred" && $password ==  $passwordrepeat)
+    {
+      $user1->create($name,$email,$password);
+      header('Location: login.php');
+    }
+    else
+     {
+      echo "the email is already registred or password not matched";
+     }
+
+  }
+
+  else
+  {
+    echo "fill the inputs!";
+  }
+
+
 }
 
   
-  // if($password == $passwordrepeat)
-  // {
-  //   $user1->create($name,$email,$password);
-  //   header('Location: ../views/login.php');
-  //   unset($_POST);
-  //   $_POST = array();
-  // }
-  // else
-  // {
-  //   header('location: ../views/register.php');
-  //   unset($_POST);
-  //   $_POST = array();
-  // }
-//   unset($_POST);
-// }
-// if($_POST = "")
-// {
-//   echo "post is clear!";
-// }
-// else
-// {
-//   echo "not clear";
-// }
-
-// unset($_POST);
-// $_POST = array();
 
 ?>
 <!DOCTYPE html>
@@ -80,7 +70,6 @@ if(isset($_POST["send"]))
                     <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
                     <span class="h1 fw-bold mb-0">BiblioSchool</span>
                   </div>
-<?php echo $error_empty ?>
                   <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Register Your Account</h5>
                   <div data-mdb-input-init class="form-outline mb-4">
                   <label class="form-label" for="Name">Full Name</label>

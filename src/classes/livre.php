@@ -1,8 +1,9 @@
 <?php
 
-include("../../config/database.php");
+require_once("../../config/database.php");
 
-class Livre extends DataBase
+
+class Livre extends DataBases
 {
     private $id;
     private $Nom;

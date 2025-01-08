@@ -1,7 +1,5 @@
 <?php
-namespace App\src\classes;
 
-use App\config\DataBase;
 
 class SignupControll
 {

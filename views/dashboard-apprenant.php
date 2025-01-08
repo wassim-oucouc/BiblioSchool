@@ -1,3 +1,26 @@
+
+
+<?php
+  session_start();
+
+echo   $_SESSION['id'];
+echo  $_SESSION['Email']; 
+
+if(!isset( $_SESSION['id']) || $_SESSION['role'] != 'Apprenant')
+{
+	header('Location: login.php');
+}
+
+else
+{
+
+
+?>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +33,7 @@
 	<link rel="stylesheet" href="../public/css/style.css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-	<title>AdminHub</title>
+	<title>BiblioSchool</title>
 </head>
 <body>
 
@@ -55,7 +78,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="#" class="logout">
+				<a name = "logout"type ='submit' href="#" class="logout">
 					<i class='bx bxs-log-out-circle' ></i>
 					<span class="text">Logout</span>
 				</a>
@@ -103,6 +126,7 @@
 			</div>
 			<div class="head-title">
 				<div class="left">
+				<h4>Bonjour Monsieur <span><?php echo   $_SESSION['Nom']; ?></span></h1>
 					<h1>Dashboard</h1>
 					<ul class="breadcrumb">
 						<li>
@@ -237,3 +261,6 @@
 	<script src="../public/js/dashboard.js"></script>
 </body>
 </html>
+
+
+<?php  }  ?>

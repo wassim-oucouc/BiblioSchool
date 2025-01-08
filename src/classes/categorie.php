@@ -1,6 +1,6 @@
 <?php
-
-class categorie extends DataBase
+require_once("../../config/database.php");
+class categorie extends DataBases
 {
     private $id;
     private $Nom;

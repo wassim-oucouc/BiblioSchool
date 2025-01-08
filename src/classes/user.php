@@ -1,8 +1,8 @@
 <?php
 
-include("../../config/database.php");
+require(".././config/database.php");
 
-class User extends DataBase
+class User extends DataBases
 {
     private $id;
     private $Nom;
@@ -70,7 +70,7 @@ class User extends DataBase
     {
         try
         {
-        $delete = $this->connection->prepare("DELETE FROM users WHERE id = :id");
+        $delete = $this->connection->prepare("DELETE FROM users WHERE ID_USER = :id");
         $delete->bindParam(':id',$id);
         $delete->execute();
         echo "USER Deleted";
@@ -99,7 +99,7 @@ public function findone($id)
 {
     try
     {
-    $findone = $this->connection->prepare("SELECT user * FROM where id = :id");
+    $findone = $this->connection->prepare("SELECT  * FROM users where id = :id");
     $findone->bindParam(':id',$id);
     $findone->execute();
     return $findone->fetch(PDO::FETCH_ASSOC);
@@ -109,6 +109,49 @@ public function findone($id)
         die($error->getMessage());
     }
 }
+
+public function countusers()
+{
+    try
+    {
+    $findone = $this->connection->prepare("SELECT  COUNT(*) FROM  users");
+    $findone->execute();
+    return $findone->fetchcolumn();
+    }
+    catch(PDOException $error)
+    {
+        die($error->getMessage());
+    }
+}
+
+public function count_users_apprenant()
+{
+    try
+    {
+    $findone = $this->connection->prepare("SELECT  COUNT(*) FROM  users where Role = 'Apprenant'");
+    $findone->execute();
+    return $findone->fetchcolumn();
+    }
+    catch(PDOException $error)
+    {
+        die($error->getMessage());
+    }
+}
+
+public function count_users_gerant()
+{
+    try
+    {
+    $findone = $this->connection->prepare("SELECT  COUNT(*) FROM  users where Role = 'Gerant'");
+    $findone->execute();
+    return $findone->fetchcolumn();
+    }
+    catch(PDOException $error)
+    {
+        die($error->getMessage());
+    }
+}
+
 
 public function setid($id)
 {
@@ -160,10 +203,7 @@ public function getrole()
     return $this->Role;
 }
 
-// public function __tostring()
-// {
-//     echo "id : " . $this->id .":name" . $this-> Nom . "Email:" . $this->Email . "password:" . $this->Password "role :" . $this->Role;
-// }
+
     }
 
   

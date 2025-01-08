@@ -1,27 +1,15 @@
 
 
 <?php
-
-include_once(".././src/classes/user.php");
   session_start();
 
 echo   $_SESSION['id'];
 echo  $_SESSION['Email']; 
 
-$user = new User();
-
-$countusers = $user->countusers();
-$countuserapprenant = $user->count_users_apprenant();
-$countusergerant = $user->count_users_gerant();
-
-var_dump($countusers);
-
-if(!isset( $_SESSION['id']) || $_SESSION['role'] != "Admin")
+if(!isset( $_SESSION['id'])  || $_SESSION['role'] != "Gerant")    
 {
 	header('Location: login.php');
 }
-
-
 
 else
 {
@@ -76,27 +64,9 @@ else
 				</a>
 			</li>
 			<li>
-				<a href="users.php">
+				<a href="#">
 					<i class='bx bxs-group' ></i>
-					<span class="text">Users</span>
-				</a>
-			</li>
-			<li>
-				<a href="livre.php">
-					<i class='bx bxs-group' ></i>
-					<span class="text">Livre</span>
-				</a>
-			</li>
-			<li>
-				<a href="">
-					<i class='bx bxs-group' ></i>
-					<span class="text">Category</span>
-				</a>
-			</li>
-			<li>
-				<a href="">
-					<i class='bx bxs-group' ></i>
-					<span class="text">Tags</span>
+					<span class="text">Livres</span>
 				</a>
 			</li>
 		</ul>
@@ -138,7 +108,7 @@ else
 				<span class="num">8</span>
 			</a>
 			<a href="#" class="profile">
-				<img src=" <?php echo $_SESSION['image']?>">
+				<img src="../public/images/people.png">
 			</a>
 		</nav>
 		<!-- NAVBAR -->
@@ -170,24 +140,24 @@ else
 				</div>
 
 			</div>
-<img src="" alt="">
+
 			<ul class="box-info">
 				<li>
 					<span class="text">
-						<h3><?php echo $countusers;?></h3>
-						<p>Total Users</p>
+						<h3>1020</h3>
+						<p>Total Livres Réservés</p>
 					</span>
 				</li>
 				<li>
 				<span class="text">
-						<h3><?php echo $countusergerant;   ?></h3>
-						<p>Total Gerant</p>
+						<h3>2834</h3>
+						<p>Reservation Approuver</p>
 					</span>
 				</li>
 				<li>
 					<span class="text">
-						<h3><?php echo $countuserapprenant; ?></h3>
-						<p>Total Apprenant</p>
+						<h3>$2543</h3>
+						<p>Reservation En Attente</p>
 					</span>
 				</li>
 			</ul>

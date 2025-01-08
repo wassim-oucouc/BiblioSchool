@@ -1,3 +1,35 @@
+<?php
+
+include('.././src/classes/Authentification.php');
+
+if ($_SERVER["REQUEST_METHOD"] == "POST")
+{
+  if(isset($_POST["login"]))
+   {
+   $_POST['email'];
+   $_POST['password'];
+    echo $_SESSION['password'];
+    $authy = new authy();
+    $authy->checkuser($_POST['email'],$_POST['password']);
+
+    // unset($_POST);
+
+    // $_POST['email'] = "";
+    // $_POST['password'] = "";
+   
+
+    
+   }
+}
+
+
+
+?>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +52,7 @@
             <div class="col-md-6 col-lg-7 d-flex align-items-center">
               <div class="card-body p-4 p-lg-5 text-black">
 
-                <form>
+                <form method = 'POST' action = 'login.php'>
 
                   <div class="d-flex align-items-center mb-3 pb-1">
                     <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
@@ -31,17 +63,17 @@
 
                   <div data-mdb-input-init class="form-outline mb-4">
                   <label class="form-label" for="form2Example17">Email address</label>
-                    <input type="email" id="form2Example17" class="form-control form-control-lg" />
+                    <input name = 'email'type="email" id="form2Example17" class="form-control form-control-lg" />
                     
                   </div>
 
                   <div data-mdb-input-init class="form-outline mb-4">
                   <label class="form-label" for="form2Example27">Password</label>
-                    <input type="password" id="form2Example27" class="form-control form-control-lg" />
+                    <input name = 'password' type="password" id="form2Example27" class="form-control form-control-lg" />
                   </div>
 
                   <div class="pt-1 mb-4">
-                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-lg btn-block" type="button">Login</button>
+                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-lg btn-block" type='submit' name ='login'>Login</button>
                   </div>
 
                   <a class="small text-muted" href="#!">Forgot password?</a>

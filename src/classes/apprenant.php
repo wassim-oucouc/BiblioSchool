@@ -1,8 +1,8 @@
 <?php
-include("../../src/classes/user.php");
+require_once("../../src/classes/user.php");
 
 
-class apprenant extend user
+class apprenant extends user
 {
     public function create_reservation($nom)
     {

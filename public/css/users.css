@@ -1,0 +1,165 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto", serif;
+}
+
+
+nav {
+    display: flex;
+    flex-direction: row;
+    gap: 670px;
+    justify-content: space-around;
+    background-color: rgb(235, 235, 235);
+    height: 80px;
+    align-items: center;
+    opacity: 1px;
+}
+.button-add{
+    display: flex;
+    gap:19px;
+}
+
+.button_add input{
+    border-radius: 13px;
+    
+}
+
+nav .logo {
+    font-size: 20px;
+    font-family: "Roboto", serif;
+    font-weight: 700;
+    font-style: italic;
+}
+
+.profileimage  img{
+    height: 50px;
+    border-radius: 13px;
+}
+
+nav .list ul {
+    display: flex;
+    justify-content: space-around;
+    gap: 70px;
+    font-family: "Roboto", serif;
+    font-weight: 900;
+    font-style: normal;
+    cursor: pointer;
+
+}
+
+nav .list ul li {
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    height: 30px;
+    width: 90px;
+    background-color: rgb(235, 235, 235);
+}
+
+nav .list ul li:hover {
+    border-radius: 13px;
+    background-color: rgb(190, 247, 209);
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f6f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+.dashboard {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #1e3a8a;
+    color: white;
+    padding: 20px;
+}
+
+.sidebar-header {
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 15px;
+}
+
+.sidebar-header h1 {
+    font-size: 24px;
+    color: #ffffff;
+}
+
+.nav-menu {
+    list-style: none;
+}
+
+.nav-menu li {
+    margin-bottom: 10px;
+}
+
+.nav-menu a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #f4f6f9;
+    overflow-y: auto;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.dashboard-header h2 {
+    font-size: 24px;
+    color: #1e3a8a;
+}
+
+.stats-grid {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    width: 480px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.stat-card .stat-title {
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.stat-card .stat-value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #1e3a8a;
+}
+
+
+
+#crud-modal {
+    position: absolute;
+    top: 40px;
+}

@@ -1,9 +1,7 @@
 <?php
-//  define('PROJECT_ROOT', dirname(dirname(dirname(__DIR__ . '/..'))));
 
-//  require_once PROJECT_ROOT . '/vendor/autoload.php';
-// namespace App\DataBase;
-class DataBase{
+class DataBases
+{
     private $dsn = "mysql:host=localhost;dbname=biblioschool;charset=UTF8";
     private $username = "root";
     private $password = "";
@@ -31,8 +29,6 @@ public function __toString() {
 }
 }
 
-
-$newdata = new DataBase();
 
 
 
